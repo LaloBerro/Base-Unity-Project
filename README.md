@@ -1,8 +1,14 @@
 # Base Unity Project
 
 Contains:
--Game Manager
--Audiomanager
--MainMen
--Loading scene
--Pause system
+
+
+-*Game Manager*
+
+-*Audio Manager*
+
+-*MainMen*
+
+-*Loading scene*
+
+-*Pause system*
