@@ -7,7 +7,7 @@ Contains:
 
 -*Audio Manager*
 
--*MainMen*
+-*MainMenu*
 
 -*Loading scene*
 
