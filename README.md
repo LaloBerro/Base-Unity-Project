@@ -7,6 +7,10 @@ Contains:
 
 -*Audio Manager*
 
+-*Singleton Class*
+
+-*Custom Editor Tools*
+
 -*MainMenu*
 
 -*Loading scene*
