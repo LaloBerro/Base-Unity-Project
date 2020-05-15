@@ -27,9 +27,9 @@ namespace Managers
             Time.timeScale = pause ? 0 : 1;
 
             if (pause)
-                AudioManager.Instance.Pause();
+                AudioManager.Instance.PauseAll();
             else
-                AudioManager.Instance.Reanude();
+                AudioManager.Instance.UnpauseAll();
         }
 
         public string GetCurrentSceneName()
