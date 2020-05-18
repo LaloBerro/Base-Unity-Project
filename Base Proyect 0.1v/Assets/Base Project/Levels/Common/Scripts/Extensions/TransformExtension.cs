@@ -54,5 +54,87 @@ namespace Extensions
 
             transform.rotation = LookAtRotationOnly_Y;
         }
+
+        /// <summary>
+        /// A method for finding all objects of a certain type that are within a specific distance from a Transform
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="transform"></param>
+        /// <param name="proximity"></param>
+        /// <returns></returns>
+        public static List<T> FindObjectsWithinProximity<T>(this Transform transform, float proximity) where T : MonoBehaviour
+        {
+            List<T> objects = new List<T>();
+
+            T[] foundObjects = GameObject.FindObjectsOfType<T>();
+            for (int x = 0; x < foundObjects.Length; x++)
+            {
+                T obj = foundObjects[x];
+                if ((obj.transform.position - transform.position).magnitude <= proximity)
+                    objects.Add(obj);
+            }
+
+            return objects;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunDistance(this Transform transform, Vector3 otherVector, float distance)
+        {
+            if (Vector3.Distance(transform.position, otherVector) < distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="otherTransform"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunDistance(this Transform transform, Transform otherTransform, float distance)
+        {
+            if (Vector3.Distance(transform.position, otherTransform.position) < distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Transform transform, Vector3 otherVector, float distance)
+        {
+            if (Vector3.Distance(transform.position, otherVector) <= distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="otherTransform"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Transform transform, Transform otherTransform, float distance)
+        {
+            if (Vector3.Distance(transform.position, otherTransform.position) <= distance)
+                return true;
+
+            return false;
+        }
     }
 }

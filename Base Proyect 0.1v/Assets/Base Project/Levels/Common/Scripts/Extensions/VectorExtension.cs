@@ -4,6 +4,7 @@ namespace Extensions
 {
     public static class VectorExtension
     {
+        #region Distace Comparations
         /// <summary>
         /// Return true if the distance between vectors is less than determined
         /// </summary>
@@ -33,6 +34,97 @@ namespace Extensions
 
             return false;
         }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunDistance(this Vector3 v, Vector2 otherVector, float distance)
+        {
+            if (Vector3.Distance(v, otherVector) < distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunDistance(this Vector2 v, Vector3 otherVector, float distance)
+        {
+            if (Vector2.Distance(v, otherVector) < distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Vector3 v, Vector3 otherVector, float distance)
+        {
+            if (Vector3.Distance(v, otherVector) <= distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Vector2 v, Vector2 otherVector, float distance)
+        {
+            if (Vector2.Distance(v, otherVector) <= distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Vector3 v, Vector2 otherVector, float distance)
+        {
+            if (Vector3.Distance(v, otherVector) <= distance)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Return true if the distance between vectors is less than determined
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="otherVector"></param>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public static bool MinimunOrEqualDistance(this Vector2 v, Vector3 otherVector, float distance)
+        {
+            if (Vector2.Distance(v, otherVector) <= distance)
+                return true;
+
+            return false;
+        }
+        #endregion
 
         /// <summary>
         /// Convert Vector3 in Vector2
