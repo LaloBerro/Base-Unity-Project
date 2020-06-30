@@ -23,8 +23,8 @@ namespace EditorTool
             EditorGUILayout.LabelField("Souns In scene", EditorStyles.boldLabel);
 
             EditorGUILayout.BeginVertical("box");
-
-            for (int i = 0; i < audiomanager.audioFiles.Count; i++)
+            
+            for (int i = 0; i < audiomanager.audioFiles.Length; i++)
             {
                 EditorGUI.BeginChangeCheck();
                 EditorGUILayout.BeginVertical("box");

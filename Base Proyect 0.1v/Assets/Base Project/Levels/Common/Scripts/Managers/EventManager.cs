@@ -1,59 +1,59 @@
 ﻿//Robado de aca jeje
 //https://learn.unity.com/tutorial/create-a-simple-messaging-system-with-events#5cf5960fedbc2a281acd21fa
 
-using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using Utils;
 
-public class EventManager : Singleton<EventManager>
+namespace Managers
 {
-    private Dictionary<string, UnityEvent> eventDictionary;
-
-    private static EventManager eventManager;
-
-    private void Awake()
+    public class EventManager : Singleton<EventManager>
     {
-        Init();
-    }
+        private Dictionary<string, UnityEvent> eventDictionary;
 
-    void Init()
-    {
-        if (eventDictionary == null)
+        private void Awake()
         {
-            eventDictionary = new Dictionary<string, UnityEvent>();
+            Init();
         }
-    }
 
-    public static void StartListening(string eventName, UnityAction listener)
-    {
-        if (instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+        void Init()
         {
-            thisEvent.AddListener(listener);
+            if (eventDictionary == null)
+            {
+                eventDictionary = new Dictionary<string, UnityEvent>();
+            }
         }
-        else
+
+        public static void StartListening(string eventName, UnityAction listener)
         {
-            thisEvent = new UnityEvent();
-            thisEvent.AddListener(listener);
-            instance.eventDictionary.Add(eventName, thisEvent);
+            if (Instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+            {
+                thisEvent.AddListener(listener);
+            }
+            else
+            {
+                thisEvent = new UnityEvent();
+                thisEvent.AddListener(listener);
+                instance.eventDictionary.Add(eventName, thisEvent);
+            }
         }
-    }
 
-    public static void StopListening(string eventName, UnityAction listener)
-    {
-        if (eventManager == null) return;
-
-        if (instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+        public static void StopListening(string eventName, UnityAction listener)
         {
-            thisEvent.RemoveListener(listener);
+            if (Instance == null) return;
+
+            if (Instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+            {
+                thisEvent.RemoveListener(listener);
+            }
         }
-    }
 
-    public static void TriggerEvent(string eventName)
-    {
-        if (instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+        public static void TriggerEvent(string eventName)
         {
-            thisEvent.Invoke();
+            if (Instance.eventDictionary.TryGetValue(eventName, out UnityEvent thisEvent))
+            {
+                thisEvent.Invoke();
+            }
         }
     }
 }

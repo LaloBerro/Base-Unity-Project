@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Extensions
@@ -49,6 +48,13 @@ namespace Extensions
             {
                 callback.Invoke(array[i]);
             }
+        }
+
+        public static List<T> ToList<T>(this T[] array) where T : class
+        {
+            List<T> output = new List<T>();
+            output.AddRange(array);
+            return output;
         }
     }
 }

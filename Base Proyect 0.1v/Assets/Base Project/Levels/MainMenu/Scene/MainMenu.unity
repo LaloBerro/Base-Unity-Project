@@ -423,7 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a06847f6c1569a49963011c0ba37b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Level1
+  eventType: 0
+  scene: Sample
 --- !u!1 &1053186537
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,12 +541,12 @@ PrefabInstance:
     - target: {fileID: 3710506740141033142, guid: 20d2d345657337b4397c0dc99c124574,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -192.19995
+      value: -192.19922
       objectReference: {fileID: 0}
     - target: {fileID: 3710506740141033142, guid: 20d2d345657337b4397c0dc99c124574,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 189.90002
+      value: 189.90039
       objectReference: {fileID: 0}
     - target: {fileID: 3710506740141033142, guid: 20d2d345657337b4397c0dc99c124574,
         type: 3}
@@ -658,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e40549cb29dbc48bec604c84871e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventType: 0
 --- !u!1 &1758809657
 GameObject:
   m_ObjectHideFlags: 0

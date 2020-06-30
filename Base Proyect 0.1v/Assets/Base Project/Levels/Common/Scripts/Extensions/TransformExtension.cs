@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Extensions
 {
     public static class TransformExtension
     {
+        #region Move
+
         /// <summary>
         /// Move a transform to a target
         /// </summary>
@@ -16,6 +17,13 @@ namespace Extensions
         {
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         }
+
+        /// <summary>
+        /// Move a transform to a target
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="target"></param>
+        /// <param name="speed"></param>
         public static void MoveTowards(this Transform transform, Transform target, float speed)
         {
             MoveTowards(transform, target.position, speed);
@@ -31,10 +39,21 @@ namespace Extensions
         {
             transform.position = Vector3.Lerp(transform.position, target, speed * Time.deltaTime);
         }
+
+        /// <summary>
+        /// Move with lerp a transform to a target
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="target"></param>
+        /// <param name="speed"></param>
         public static void MoveLerpTo(this Transform transform, Transform target, float speed)
         {
             MoveLerpTo(transform, target.position, speed);
         }
+
+        #endregion
+
+        #region Utils
 
         /// <summary>
         /// Rotate the transform to the target direction
@@ -77,6 +96,10 @@ namespace Extensions
             return objects;
         }
 
+        #endregion
+
+        #region Distance Comparations
+
         /// <summary>
         /// Return true if the distance between vectors is less than determined
         /// </summary>
@@ -84,7 +107,7 @@ namespace Extensions
         /// <param name="otherVector"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
-        public static bool MinimunDistance(this Transform transform, Vector3 otherVector, float distance)
+        public static bool MinimumDistance(this Transform transform, Vector3 otherVector, float distance)
         {
             if (Vector3.Distance(transform.position, otherVector) < distance)
                 return true;
@@ -99,7 +122,7 @@ namespace Extensions
         /// <param name="otherTransform"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
-        public static bool MinimunDistance(this Transform transform, Transform otherTransform, float distance)
+        public static bool MinimumDistance(this Transform transform, Transform otherTransform, float distance)
         {
             if (Vector3.Distance(transform.position, otherTransform.position) < distance)
                 return true;
@@ -114,7 +137,7 @@ namespace Extensions
         /// <param name="otherVector"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
-        public static bool MinimunOrEqualDistance(this Transform transform, Vector3 otherVector, float distance)
+        public static bool MinimumOrEqualDistance(this Transform transform, Vector3 otherVector, float distance)
         {
             if (Vector3.Distance(transform.position, otherVector) <= distance)
                 return true;
@@ -129,12 +152,14 @@ namespace Extensions
         /// <param name="otherTransform"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
-        public static bool MinimunOrEqualDistance(this Transform transform, Transform otherTransform, float distance)
+        public static bool MinimumOrEqualDistance(this Transform transform, Transform otherTransform, float distance)
         {
             if (Vector3.Distance(transform.position, otherTransform.position) <= distance)
                 return true;
 
             return false;
         }
+
+        #endregion
     }
 }

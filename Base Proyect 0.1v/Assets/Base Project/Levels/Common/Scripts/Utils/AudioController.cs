@@ -17,7 +17,8 @@ namespace Utils
 
         private void OnEnable()
         {
-            if (AudioManager.Instance.IsSourcePlaying(audioName) || !playAudioOnEnable) return;
+            if (!playAudioOnEnable) return;
+            if (AudioManager.Instance.IsSourcePlaying(audioName)) return;
 
             AudioManager.Instance.PlaySource(audioName);
         }

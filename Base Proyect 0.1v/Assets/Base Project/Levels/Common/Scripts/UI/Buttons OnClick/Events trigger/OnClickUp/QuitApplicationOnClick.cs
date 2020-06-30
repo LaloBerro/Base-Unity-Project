@@ -2,9 +2,9 @@
 
 namespace UnityEngine.UI
 {
-    public class QuitApplicationOnClick : ActionOnClick
+    public class QuitApplicationOnClick : EventTriggerType
     {
-        public override void OnClick()
+        public override void Callback()
         {
             GameManager.Instance.Quit();
         }

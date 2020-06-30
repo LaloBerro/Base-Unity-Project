@@ -3,11 +3,11 @@ using Managers;
 
 namespace UnityEngine.UI
 {
-    public class LoadSceneOnClick : ActionOnClick
+    public class LoadSceneOnClick : EventTriggerType
     {
         public string scene;
 
-        public override void OnClick()
+        public override void Callback()
         {
             GameManager.Instance.LoadScene(scene);
         }

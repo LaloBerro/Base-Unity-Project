@@ -10,8 +10,10 @@ namespace Managers
     {
         #region VAR
 
-        public List<AudioFile> audioFiles;
+        public AudioFile[] audioFiles;
 
+        [Header("Debug")]
+        [SerializeField]
         private List<AudioFile> pausedAudiosFiles = new List<AudioFile>();
 
         private bool isLowered = false;
@@ -25,7 +27,7 @@ namespace Managers
         void Awake()
         {
             //Initialize all audio files
-            for (int i = 0; i < audioFiles.Count; i++)
+            for (int i = 0; i < audioFiles.Length; i++)
             {
                 audioFiles[i].source = gameObject.AddComponent<AudioSource>();
                 audioFiles[i].source.clip = audioFiles[i].audioClip;
@@ -41,14 +43,16 @@ namespace Managers
 
         #region METHODS
 
+        #region Pause      
+
         /// <summary>
         /// Pause all audio sources, exept noPause name
         /// </summary>
         public void PauseAll(string noPause = "")
         {
-            for (int i = 0; i < audioFiles.Count; i++)
+            for (int i = 0; i < audioFiles.Length; i++)
             {
-                if (pausedAudiosFiles[i].audioName == noPause) continue;
+                if (audioFiles[i].audioName == noPause) continue;
 
                 if (audioFiles[i].source.isPlaying)
                 {
@@ -59,86 +63,19 @@ namespace Managers
         }
 
         /// <summary>
-        /// Unpause the paused audios source
+        /// Pause all audio sources, exept noPause name
         /// </summary>
-        public void UnpauseAll()
+        public void PauseAllWithFade(string noPause = "", float time = 0)
         {
-            for (int i = 0; i < pausedAudiosFiles.Count; i++)
+            for (int i = 0; i < audioFiles.Length; i++)
             {
-                pausedAudiosFiles[i].source.Play();
-            }
+                if (audioFiles[i].audioName == noPause) continue;
 
-            pausedAudiosFiles.Clear();
-        }
-
-        /// <summary>
-        /// Play an audio source
-        /// </summary>
-        /// <param name="name"></param>
-        public void PlaySource(string name)
-        {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
-            if (s == null)
-            {
-                Debug.LogError("Sound name" + name + "not found!");
-                return;
-            }
-            else
-            {
-                s.source.Play();
-            }
-        }
-
-        public void PlaySource(string name, AudioClip clip)
-        {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
-            if (s == null)
-            {
-                Debug.LogError("Sound name" + name + "not found!");
-                return;
-            }
-            else
-            {
-                s.audioClip = clip;
-                s.source.clip = clip;
-                s.source.Play();
-            }
-        }
-
-        public void PlayOneShot(AudioClip clip)
-        {
-            PlayOneShotInSource("PlayOneShot", clip);
-        }
-
-        public void PlayOneShotInSource(string name, AudioClip clip)
-        {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
-            if (s == null)
-            {
-                Debug.LogError("Sound name" + name + "not found!");
-                return;
-            }
-            else
-            {
-                s.source.PlayOneShot(clip);
-            }
-        }
-
-        /// <summary>
-        /// Stop an auido source
-        /// </summary>
-        /// <param name="name"></param>
-        public void StopSource(string name)
-        {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
-            if (s == null)
-            {
-                Debug.LogError("Sound name" + name + "not found!");
-                return;
-            }
-            else
-            {
-                s.source.Stop();
+                if (audioFiles[i].source.isPlaying)
+                {
+                    FadeOutSource(audioFiles[i].audioName, time, false);
+                    pausedAudiosFiles.Add(audioFiles[i]);
+                }
             }
         }
 
@@ -148,7 +85,7 @@ namespace Managers
         /// <param name="name"></param>
         public void PauseSource(string name)
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
             if (s == null)
             {
                 Debug.LogError("Sound name" + name + "not found!");
@@ -166,7 +103,7 @@ namespace Managers
         /// <param name="name"></param>
         public void UnPauseSource(string name)
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
 
             if (s == null)
             {
@@ -179,17 +116,154 @@ namespace Managers
             }
         }
 
-        public bool IsSourcePlaying(string name)
+        /// <summary>
+        /// Unpause the paused audios source
+        /// </summary>
+        public void UnpauseAll()
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+            for (int i = 0; i < pausedAudiosFiles.Count; i++)
+            {
+                pausedAudiosFiles[i].source.Play();
+            }
 
+            pausedAudiosFiles.Clear();
+        }
+
+        /// <summary>
+        /// Stop an auido source
+        /// </summary>
+        /// <param name="name"></param>
+        public void StopSource(string name)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
             if (s == null)
             {
                 Debug.LogError("Sound name" + name + "not found!");
+                return;
+            }
+            else
+            {
+                s.source.Stop();
+            }
+        }
+
+        #endregion
+
+        #region Play
+
+        /// <summary>
+        /// Play an audio source
+        /// </summary>
+        /// <param name="name"></param>
+        public void PlaySource(string name)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+            if (s == null)
+            {
+                Debug.LogError("Sound name" + name + "not found!");
+                return;
+            }
+            else
+            {
+                s.source.Play();
+            }
+        }
+
+        /// <summary>
+        /// Play a audio source
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="clip"></param>
+        public void PlaySource(string name, AudioClip clip)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+            if (s == null)
+            {
+                Debug.LogError("Sound name" + name + "not found!");
+                return;
+            }
+            else
+            {
+                s.audioClip = clip;
+                s.source.clip = clip;
+                s.source.Play();
+            }
+        }
+
+        /// <summary>
+        /// Play in one shot a clip
+        /// </summary>
+        /// <param name="clip"></param>
+        public void PlayOneShot(AudioClip clip)
+        {
+            PlayOneShotInSource("PlayOneShot", clip);
+        }
+
+        /// <summary>
+        /// Play in one shot a clip in a given source
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="clip"></param>
+        public void PlayOneShotInSource(string name, AudioClip clip)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+            if (s == null)
+            {
+                Debug.LogError("Sound name" + name + "not found!");
+                return;
+            }
+            else
+            {
+                s.source.PlayOneShot(clip);
+            }
+        }
+
+        public bool IsSourcePlaying(string name)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+
+            if (s.source == null)
+            {
+                Debug.LogError("Sound name " + name + " not found!");
                 return false;
             }
 
             return s.source.isPlaying;
+        }
+
+        #endregion
+
+        #region Volume
+
+        /// <summary>
+        /// Set the volume of a audiosource
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="vol"></param>
+        public void SetVolume(string name, float vol)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+            if (s == null)
+            {
+                Debug.LogError("Sound name" + name + "not found!");
+                return;
+            }
+            else
+            {
+                s.source.volume = vol;
+            }
+        }
+
+        /// <summary>
+        /// Set the volume an auido source
+        /// </summary>
+        /// <param name="tmpName"></param>
+        /// <param name="tmpVol"></param>
+        private void ResetVol(string tmpName, float tmpVol)
+        {
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == tmpName);
+            s.source.volume = tmpVol;
+            isLowered = false;
         }
 
         /// <summary>
@@ -201,7 +275,7 @@ namespace Managers
         {
             if (isLowered == false)
             {
-                AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+                AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
                 if (s == null)
                 {
                     Debug.LogError("Sound name" + name + "not found!");
@@ -214,7 +288,19 @@ namespace Managers
                 }
                 isLowered = true;
             }
+        }
 
+        /// <summary>
+        /// Set the volume to 0 for a time
+        /// </summary>
+        /// <param name="tmpName"></param>
+        /// <param name="tmpVol"></param>
+        /// <param name="_duration"></param>
+        /// <returns></returns>
+        private IEnumerator LowerVolumeForTime(string tmpName, float tmpVol, float _duration)
+        {
+            yield return new WaitForSeconds(_duration);
+            ResetVol(tmpName, tmpVol);
         }
 
         /// <summary>
@@ -222,9 +308,9 @@ namespace Managers
         /// </summary>
         /// <param name="name"></param>
         /// <param name="duration"></param>
-        public void FadeOutSource(string name, float duration)
+        public void FadeOutSource(string name, float duration, bool stop = true)
         {
-            StartCoroutine(IFadeOut(name, duration));
+            StartCoroutine(IFadeOut(name, duration, stop));
         }
 
         /// <summary>
@@ -236,12 +322,17 @@ namespace Managers
         public void FadeInSource(string name, float targetVolume, float duration)
         {
             StartCoroutine(IFadeIn(name, targetVolume, duration));
-
         }
 
-        private IEnumerator IFadeOut(string name, float duration)
+        /// <summary>
+        /// Leave a audio source with Fade Out
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        private IEnumerator IFadeOut(string name, float duration, bool stop = true)
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
 
             if (s == null)
             {
@@ -260,7 +351,12 @@ namespace Managers
                         s.source.volume -= startVol * Time.deltaTime / duration;
                         yield return null;
                     }
-                    s.source.Stop();
+
+                    if (stop)
+                        s.source.Stop();
+                    else
+                        s.source.Pause();
+
                     yield return new WaitForSeconds(duration);
                     fadeOut = false;
                 }
@@ -272,9 +368,16 @@ namespace Managers
             }
         }
 
+        /// <summary>
+        /// Start a audio with fadein
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="targetVolume"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
         public IEnumerator IFadeIn(string name, float targetVolume, float duration)
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
             if (s == null)
             {
                 Debug.LogError("Sound name" + name + "not found!");
@@ -305,37 +408,45 @@ namespace Managers
             }
         }
 
+        #endregion
+
+        #region Utils
+
         /// <summary>
-        /// Set the volume an auido source
+        /// Return a audio source with given name file
         /// </summary>
-        /// <param name="tmpName"></param>
-        /// <param name="tmpVol"></param>
-        private void ResetVol(string tmpName, float tmpVol)
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public AudioSource GetSource(string name)
         {
-            AudioFile s = audioFiles.Find(AudioFile => AudioFile.audioName == name);
-            s.source.volume = tmpVol;
-            isLowered = false;
+            AudioFile s = Array.Find(audioFiles, AudioFile => AudioFile.audioName == name);
+            if (s == null)
+            {
+                Debug.LogError("Sound name" + name + "not found!");
+                return null;
+            }
+            else
+            {
+                return s.source;
+            }
         }
 
-        private IEnumerator LowerVolumeForTime(string tmpName, float tmpVol, float _duration)
-        {
-            yield return new WaitForSeconds(_duration);
-            ResetVol(tmpName, tmpVol);
-        }
+        #endregion
+
         #endregion
     }
-}
 
-[System.Serializable]
-public class AudioFile
-{
-    public string audioName;
-    public AudioClip audioClip;
-    [Range(0f, 1f)]
-    public float volume;
+    [System.Serializable]
+    public class AudioFile
+    {
+        public string audioName;
+        public AudioClip audioClip;
+        [Range(0f, 1f)]
+        public float volume;
 
-    [HideInInspector]
-    public AudioSource source;
-    public bool isLooping;
-    public bool playOnAwake;
+        [HideInInspector]
+        public AudioSource source;
+        public bool isLooping;
+        public bool playOnAwake;
+    }
 }
