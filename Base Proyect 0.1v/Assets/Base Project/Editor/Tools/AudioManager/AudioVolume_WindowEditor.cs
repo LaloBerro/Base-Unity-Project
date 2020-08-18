@@ -5,7 +5,7 @@ namespace EditorTool
 {
     public class AudioVolume_WindowEditor : EditorWindow
     {
-        AudioManager audiomanager = null;
+        /*AudioManager audiomanager = null;
 
         [MenuItem("Tools/Audio Volumes")]
         public static void ShowWindow()
@@ -39,6 +39,6 @@ namespace EditorTool
             }
 
             EditorGUILayout.EndVertical();
-        }
+        }*/
     }
 }
