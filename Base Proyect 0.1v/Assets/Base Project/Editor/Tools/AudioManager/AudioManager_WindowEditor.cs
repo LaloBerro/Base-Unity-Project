@@ -12,7 +12,7 @@ namespace UnityEditor {
 
         private bool finder;
 
-        Vector2 index = new Vector2();
+        Vector2 index = Vector2.zero ;
 
         [MenuItem("Tools/Audio Manager")]
         public static void ShowWindow()
