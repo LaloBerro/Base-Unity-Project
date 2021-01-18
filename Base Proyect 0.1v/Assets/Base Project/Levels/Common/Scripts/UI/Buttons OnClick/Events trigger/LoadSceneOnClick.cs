@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using Managers;
+﻿using Managers;
 
-namespace UnityEngine.UI
+namespace Common.UI
 {
-    public class LoadSceneOnClick : EventTriggerType
+    public class LoadSceneOnClick : TriggerEvent
     {
         public string scene;
 

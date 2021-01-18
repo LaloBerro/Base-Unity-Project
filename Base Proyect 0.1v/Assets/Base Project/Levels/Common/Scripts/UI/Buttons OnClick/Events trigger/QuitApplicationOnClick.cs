@@ -1,8 +1,8 @@
 ﻿using Managers;
 
-namespace UnityEngine.UI
+namespace Common.UI
 {
-    public class QuitApplicationOnClick : EventTriggerType
+    public class QuitApplicationOnClick : TriggerEvent
     {
         public override void Callback()
         {

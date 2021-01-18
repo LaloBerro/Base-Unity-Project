@@ -1,7 +1,11 @@
-﻿namespace UnityEngine.UI
+﻿using UnityEngine;
+
+namespace Common.UI
 {
-    public class ResetSize_EventTrigger : EventTriggerType
+    public class ReduceSize_EventTrigger : TriggerEvent
     {
+        public float reduceAmount = 1.0f;
+
         private Vector3 startSize;
 
         private void Awake()
@@ -11,7 +15,7 @@
 
         public override void Callback()
         {
-            transform.localScale = startSize;
+            transform.localScale -= startSize * reduceAmount;
         }
     }
 }

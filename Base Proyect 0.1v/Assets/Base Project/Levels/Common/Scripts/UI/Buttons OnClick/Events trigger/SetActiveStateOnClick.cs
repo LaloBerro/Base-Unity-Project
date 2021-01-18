@@ -1,7 +1,8 @@
-﻿
-namespace UnityEngine.UI
+﻿using UnityEngine;
+
+namespace Common.UI
 {
-    public class SetActiveStateOnClick : EventTriggerType
+    public class SetActiveStateOnClick : TriggerEvent
     {
         public GameObject _gameObject;
         public bool activeState;

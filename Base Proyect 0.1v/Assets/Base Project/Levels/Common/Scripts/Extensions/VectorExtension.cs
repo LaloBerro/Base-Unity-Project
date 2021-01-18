@@ -501,6 +501,23 @@ namespace Extensions
             return vector;
         }
 
+        /// <summary>
+        /// Interpolates between min and max with smoothing limits
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="to"></param>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public static Vector3 SmoothLerp(this Vector3 vector, Vector3 to, float speed)
+        {
+            Vector3 _vector = vector;
+            _vector.x = Mathf.SmoothStep(_vector.x, to.x, speed * Time.deltaTime);
+            _vector.y = Mathf.SmoothStep(_vector.y, to.y, speed * Time.deltaTime);
+            _vector.z = Mathf.SmoothStep(_vector.z, to.z, speed * Time.deltaTime);
+
+            return _vector;
+        }
+
         #endregion
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Managers;
 
-namespace UnityEngine.UI
+namespace Common.UI
 {
-    public class PauseOnClick : EventTriggerType
+    public class PauseOnClick : TriggerEvent
     {
         public bool toPause;
 

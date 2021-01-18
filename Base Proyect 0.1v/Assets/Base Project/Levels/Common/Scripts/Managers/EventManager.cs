@@ -9,10 +9,18 @@ namespace Managers
 {
     public class EventManager : Singleton<EventManager>
     {
+        public bool dontDestroyOnload;
+
         private Dictionary<string, UnityEvent> eventDictionary;
 
         private void Awake()
         {
+            if (dontDestroyOnload)
+                if (Instance != this)
+                    Destroy(gameObject);
+                else
+                    DontDestroyOnLoad(this);
+
             Init();
         }
 
