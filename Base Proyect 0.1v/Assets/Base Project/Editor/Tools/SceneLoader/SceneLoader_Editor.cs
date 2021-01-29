@@ -10,6 +10,7 @@ namespace EditorTool
         List<SceneAsset> m_SceneAssets = new List<SceneAsset>();
 
         private Vector2 scrollPosition;
+        private bool multiScene;
 
         // Add menu item named "Example Window" to the Window menu
         [MenuItem("Tools/Scene Loader")]
@@ -21,18 +22,26 @@ namespace EditorTool
 
         void OnGUI()
         {
+            multiScene = EditorGUILayout.Toggle("Multi Scene", multiScene);
+
             scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, false, GUILayout.Width(200), GUILayout.MinHeight(1), GUILayout.MaxHeight(1000), GUILayout.ExpandHeight(true));
+
             for (int i = 0; i < EditorBuildSettings.scenes.Length; i++)
             {
 
                 GUILayout.Space(10);
                 if (GUILayout.Button(GetSceneName(EditorBuildSettings.scenes[i].path)))
                 {
-                    EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-                    EditorSceneManager.OpenScene(EditorBuildSettings.scenes[i].path);
+                    if (multiScene)
+                        EditorSceneManager.OpenScene(EditorBuildSettings.scenes[i].path, OpenSceneMode.Additive);
+                    else
+                    {
+                        EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+                        EditorSceneManager.OpenScene(EditorBuildSettings.scenes[i].path);
+                    }
                 }
-
             }
+
             GUILayout.EndScrollView();
         }
 
@@ -59,6 +68,6 @@ namespace EditorTool
             }
 
             return sceneName;
-        }
+        }    
     }
 }

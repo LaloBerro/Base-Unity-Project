@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Base Project/Levels/Empty Base Folder/Scene/Sample.unity
     guid: 631f97515a9373e4884b83f75e57d753
+  - enabled: 1
+    path: Assets/Base Project/Levels/Pause/Scene/Pause.unity
+    guid: 5fbeb43d69e6f194abe1c45765bdd420
   m_configObjects: {}

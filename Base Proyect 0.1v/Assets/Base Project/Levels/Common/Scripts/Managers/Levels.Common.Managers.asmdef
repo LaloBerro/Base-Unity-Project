@@ -1,0 +1,15 @@
+{
+    "name": "Levels.Common.Managers",
+    "references": [
+        "GUID:6f89038c4536b1a498f01afeac1c3597"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

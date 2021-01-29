@@ -25,5 +25,21 @@ namespace Patterns
                 return instance;
             }
         }
+
+        protected void PassTroughScenes()
+        {
+            if (IsThisTheInstance())
+                DontDestroyOnLoad(gameObject);                   
+            else
+                Destroy(this);
+        }
+
+        protected bool IsThisTheInstance()
+        {
+            if (Instance != this)
+                return false;
+            else
+                return true;
+        }
     }
 }

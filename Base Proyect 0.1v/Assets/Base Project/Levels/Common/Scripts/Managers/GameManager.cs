@@ -9,7 +9,7 @@ namespace Managers
     {
         [Header("Debug")]
         public bool pause;
-        public string nextScene;
+        public string[] nextScenes;
         public float progress;
 
         private void Awake()
@@ -41,10 +41,10 @@ namespace Managers
         /// Carga la escena de loading y despues la escena a la que quiero ir
         /// </summary>
         /// <param name="scene"></param>
-        public void LoadScene(string scene)
+        public void LoadScene(string[] scenes)
         {
             progress = 0;
-            nextScene = scene;
+            nextScenes = scenes;
             Time.timeScale = 1;
 
             StartCoroutine(LoadingScene());
@@ -56,7 +56,12 @@ namespace Managers
 
             yield return new WaitUntil(() => async.isDone);
 
-            async = SceneManager.LoadSceneAsync(nextScene);
+            AsyncOperation[] asyncOperations = new AsyncOperation[nextScenes.Length];
+
+            for (int i = 0; i < nextScenes.Length; i++)
+            {
+                asyncOperations[i] = SceneManager.LoadSceneAsync(nextScenes[i]);
+            }
 
             while (!async.isDone)
             {
